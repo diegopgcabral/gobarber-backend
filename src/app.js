@@ -1,6 +1,8 @@
 // Configuração do servidor express...
 import express from 'express';
+import path from 'path';
 import routes from './routes';
+
 import './database';
 
 class App {
@@ -13,6 +15,11 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
+    // express.static -> usada para buscar o path onde o arquivo se encontra
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   routes() {
