@@ -29,6 +29,8 @@ routes.put('/users', UserController.update);
 routes.get('/providers', ProviderController.index);
 // Cadastrar um novo agendamento
 routes.post('/appointments', AppointmentController.store);
+// Exibir os agendamentos do usuário logado
+routes.get('/appointments', AppointmentController.index);
 // Cadastrar um avatar para usuário
 routes.post('/files', upload.single('file'), FileController.store);
 
