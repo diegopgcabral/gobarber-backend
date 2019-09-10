@@ -6,10 +6,15 @@ import Appointment from '../models/Appointment';
 
 class AppointmentController {
   async index(req, res) {
+    const { page = 1 } = req.query;
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date'],
+      limit: 20,
+      // Sempre diminuo "1" do número da página atual, para ele pegar sempre
+      // os proximos 20 registros
+      offset: (page - 1) * 20,
       include: [
         {
           /**
