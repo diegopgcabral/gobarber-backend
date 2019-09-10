@@ -30,6 +30,10 @@ class User extends Model {
     return this;
   }
 
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+  }
+
   /**
    * Verifico se a senha passada é igual a cadastrada no BD
    */
