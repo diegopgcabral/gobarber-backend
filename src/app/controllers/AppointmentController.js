@@ -66,6 +66,15 @@ class AppointmentController {
     }
 
     /**
+     * Verifico se quem tá fazendo o agendamento é o próprio provider
+     */
+    if (provider_id === req.userId) {
+      return res
+        .status(401)
+        .json({ error: 'Provider can not make appointments' });
+    }
+
+    /**
      * Pego somente a Hora do agendamento
      */
     const hourStart = startOfHour(parseISO(date));
