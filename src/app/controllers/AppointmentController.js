@@ -6,6 +6,8 @@ import File from '../models/File';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 
+import Mail from '../../lib/Mail';
+
 // subHours -> Reduz uma determinada hora de um horário
 
 class AppointmentController {
@@ -126,7 +128,16 @@ class AppointmentController {
   }
 
   async delete(req, res) {
-    const appointment = await Appointment.findByPk(req.params.id);
+    // Uso include para pegar as informações na tabela de USERS
+    const appointment = await Appointment.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: 'provider',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
     /**
      * Verifico se o id do usuário é diferente do id do usuário logado
      */
@@ -147,6 +158,12 @@ class AppointmentController {
     appointment.canceled_at = new Date();
     // Gravo no BD a alteração
     await appointment.save();
+    // Enviando email de cancelamento do agendamento
+    await Mail.sendMail({
+      to: `${appointment.provider.name} <${appointment.provider.email}`,
+      subject: 'Agendamento Cancelado',
+      text: 'Você tem um novo cancelamento',
+    });
 
     return res.json(appointment);
   }

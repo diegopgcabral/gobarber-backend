@@ -21,7 +21,7 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 /**
- * Todas as rotas para baixar serão validadas com o TOKEN para fazer alterações
+ * Todas as rotas para baixo serão validadas com o TOKEN para fazer alterações
  */
 routes.use(authMiddleware);
 
@@ -33,7 +33,7 @@ routes.get('/providers', ProviderController.index);
 routes.post('/appointments', AppointmentController.store);
 // Exibir os agendamentos do usuário logado
 routes.get('/appointments', AppointmentController.index);
-// Excluir um agendamento do usuário logado
+// Cancelar um agendamento do usuário logado
 routes.delete('/appointments/:id', AppointmentController.delete);
 // Exibir o agendamento do prestador de serviço que está logado
 routes.get('/schedule', ScheduleController.index);
