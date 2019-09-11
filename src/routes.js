@@ -33,6 +33,8 @@ routes.get('/providers', ProviderController.index);
 routes.post('/appointments', AppointmentController.store);
 // Exibir os agendamentos do usuário logado
 routes.get('/appointments', AppointmentController.index);
+// Excluir um agendamento do usuário logado
+routes.delete('/appointments/:id', AppointmentController.delete);
 // Exibir o agendamento do prestador de serviço que está logado
 routes.get('/schedule', ScheduleController.index);
 // Listar as notificações do provider.
