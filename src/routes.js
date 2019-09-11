@@ -37,6 +37,8 @@ routes.get('/appointments', AppointmentController.index);
 routes.get('/schedule', ScheduleController.index);
 // Listar as notificações do provider.
 routes.get('/notifications', NotificationController.index);
+// Marcar a notificação como lida
+routes.put('/notifications/:id', NotificationController.update);
 // Cadastrar um avatar para usuário
 routes.post('/files', upload.single('file'), FileController.store);
 
