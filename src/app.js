@@ -2,6 +2,7 @@
 import 'dotenv/config';
 
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import Youch from 'youch';
 import * as Sentry from '@sentry/node';
@@ -26,6 +27,10 @@ class App {
   middlewares() {
     // The request handler must be the first middleware on the app
     this.server.use(Sentry.Handlers.requestHandler());
+    /**
+     * Produção: this.server.use(cors({ origin: 'https://rocketseat.com.br' }));
+     */
+    this.server.use(cors());
     this.server.use(express.json());
     // express.static -> usada para buscar o path onde o arquivo se encontra
     this.server.use(
